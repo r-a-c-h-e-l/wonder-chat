@@ -4,10 +4,8 @@ import {
   ADD_MESSAGE,
   SET_AUTHOR,
 } from './actionTypes';
-// import uuid from 'uuid/v4';
 
 let messageCount = 0;
-// const uniqueId = () => { return uuid() };
 
 // action creators
 export function addUser(user) {
@@ -45,7 +43,8 @@ export function setAuthor(user) {
   return {
     type: SET_AUTHOR,
     payload: {
-      id: user.id
+      id: user.id,
+      name: user.name,
     }
   }
 }
