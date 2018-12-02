@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import chat from './Store/reducers';
+import chatStore from './Store';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 
-const store = createStore(chat);
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={chatStore}>
     <App />
   </Provider>, document.getElementById('root')
 );
