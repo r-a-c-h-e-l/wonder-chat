@@ -10,40 +10,112 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, .4);
 }
 
-.chatWindow {
+.chatMain {
   display: inline-block;
   min-height: 100vh;
   width: 80vw;
   color: black;
 } */
+body {
+  overflow: hidden;
+}
 
 .App {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-areas: "sidebar main";
+  grid-template-areas: "sidebar main"; */
+  display: flex;
+  flex-direction: row;
   height: 100vh;
   width: 100vw;
 }
 
-.chatSidebar {
+/*  SIDEBAR STYLES */
+/* .chatSidebar {
   grid-area: sidebar;
+  z-index: 1;
   background-color: #ecf0f1;
   box-shadow: 0 0 5px rgba(0, 0, 0, .4);
   height: 100vh;
+} */
+
+.chatSidebar {
+  display: inline-block;
+  z-index: 1;
+  min-height: 100vh;
+  min-width: 300px;
+  background-color: #ecf0f1;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .4);
 }
 
-.chatMain {
+/* USER LIST STYLES */
+.usersListContainer {
+  margin-top: 50px;
+  padding: 10px;
+  height: 80%;
+}
+.userItemContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  margin: 5px 5px 0;
+  font-family: monospace;
+  padding: 4px;
+}
+
+.userIndicator {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin: 0 10px;
+  box-shadow: 0 0 5px 0 rgba(22,160,133 ,1);
+}
+.userIndicator.active {
+  background-color: #1abc9c;
+}
+
+.userIndicator.disabled {
+  border: 1px solid #7f8c8d;
+  background-color: #ecf0f1;
+}
+
+/* MESSAGE CONTAINER STYLES */
+/* .chatMain {
   grid-area: main;
+  min-height: 100%;
+} */
+
+.chatMain {
+  display: inline-block;
+  min-height: 100vh;
+  width: 80vw;
+  color: black;
+}
+
+.messagesContainer {
+  padding: 20px 40px 15px;
+  height: 85%;
+  font-size: 12px;
+  overflow-y: scroll;
   scroll-behavior: auto;
 }
 
+.messageItemContainer {
+  margin-top: 5px;
+}
+
+/* MESSAGE INPUT STYLES */
 .messageInputContainer {
   position: fixed;
+  background: white;
   bottom: 0;
   width: 100%;
   padding: 5px;
+  padding-left: 40px;
   margin-left: 0px;
-  height: 40px;
+  /* height: 45px; */
+  height: 7%;
   box-shadow: 2px 0 4px rgba(0, 0, 0, .4);
 }
 
