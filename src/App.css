@@ -1,32 +1,58 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* .App {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar {
+  display: inline-block;
+  min-height: 100vh;
+  min-width: 250px;;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, .4);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chatWindow {
+  display: inline-block;
+  min-height: 100vh;
+  width: 80vw;
+  color: black;
+} */
+
+.App {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas: "sidebar main";
+  height: 100vh;
+  width: 100vw;
+}
+
+.chatSidebar {
+  grid-area: sidebar;
+  background-color: #ecf0f1;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+  height: 100vh;
+}
+
+.chatMain {
+  grid-area: main;
+  scroll-behavior: auto;
+}
+
+.messageInputContainer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  margin-left: 0px;
+  height: 40px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, .4);
+}
+
+.messageInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 12px;
+}
+.messageInput:focus {
+  outline: none;
 }
