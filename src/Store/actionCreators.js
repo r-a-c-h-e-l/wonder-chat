@@ -34,7 +34,8 @@ export function addMessage(message) {
     payload: {
       id: messageCount++,
       message: message.text,
-      authorId: message.authorId
+      authorId: message.authorId,
+      authorName: message.authorName,
     }
   }
 }

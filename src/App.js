@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './Components/Sidebar/Sidebar';
-import Messages from './Components/Main/Messages';
+import { MessagesContainer as Messages } from './Components/Main/MessagesContainer';
 import { MessageInputContainer as MessageInput } from './Components/Main/MessageInputContainer';
 
 import './App.css';
@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <Sidebar />
         <div className="chatMain">
-          <Messages messages={[]}/>
+          <Messages/>
           <MessageInput/>
         </div>
       </div>

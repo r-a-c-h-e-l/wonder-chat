@@ -8,7 +8,7 @@ const MessageInput = ({ onSubmit }) => {
   function onKeyDownHandler(e) {
     // for now authorId will be the static (1)
     // consider using context for user, so that all components may know user information
-    const message = { authorId: 1, text: e.target && e.target.value }
+    const message = { authorId: 1, text: e.target && e.target.value, authorName: 'Rachel'}
     if (e.keyCode === ENTER) {
       onSubmit(message)
       input.value = '';

@@ -10,7 +10,7 @@ const Messages = ({ messages }) => {
           <MessageItem
             key={_message.id}
             message={_message.message}
-            author={'rachel'}
+            author={_message.authorName}
           />
         )
       })}
