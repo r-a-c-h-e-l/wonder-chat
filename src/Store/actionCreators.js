@@ -2,18 +2,19 @@ import {
   ADD_USER,
   REMOVE_USER,
   ADD_MESSAGE,
+  SET_AUTHOR,
 } from './actionTypes';
+// import uuid from 'uuid/v4';
 
-let userCount = 0;
 let messageCount = 0;
-
+// const uniqueId = () => { return uuid() };
 
 // action creators
 export function addUser(user) {
   return {
     type: ADD_USER,
     payload: {
-      id: userCount++,
+      id: user.id,
       name: user.name,
     }
   }
@@ -39,3 +40,18 @@ export function addMessage(message) {
     }
   }
 }
+
+export function setAuthor(user) {
+  return {
+    type: SET_AUTHOR,
+    payload: {
+      id: user.id
+    }
+  }
+}
+
+// // websocket actionCreator
+//
+// export function incomingMessage(message) {
+//   return {}
+// }

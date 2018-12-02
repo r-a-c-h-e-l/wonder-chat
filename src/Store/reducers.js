@@ -3,16 +3,25 @@ import {
   ADD_USER,
   REMOVE_USER,
   ADD_MESSAGE,
+  SET_AUTHOR,
 } from './actionTypes';
+// import uuid from 'uuid/v4';
+
+const uniqueId = 0;
+const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut'][Math.floor((Math.random() * 6))];
+const initialAuthorState = { id: uniqueId, name: `anonymous ${nut} (you)`}
+const initialUserState = [[ uniqueId, initialAuthorState]]
 
 // reducers
+function setAuthor(state, payload) {
+  return Object.assign({}, state, { author: payload });
+}
+
 function addUser(state, payload) {
   const userId = payload.id;
   const newState = new Map(state);
   newState.set(userId, payload)
   return newState;
-  // const newState = state.set(userCount, payload);
-  // return new Map([...state, ...newState]);
 }
 
 function removeUser(state, payload) {
@@ -27,7 +36,7 @@ function addMessage(state, payload) {
 }
 
 // reducer composition, slicing state
-function users(state = new Map(), action) {
+function users(state = new Map(initialUserState), action) {
   switch (action.type) {
     case ADD_USER:
       return addUser(state, action.payload)
@@ -47,9 +56,19 @@ function messages(state = [], action) {
   }
 }
 
+function author(state = initialAuthorState, action){
+  switch(action.type) {
+    case SET_AUTHOR:
+      return setAuthor(state, action.payload)
+    default:
+      return state
+  }
+}
+
 const chatApp = combineReducers({
   users,
   messages,
+  author,
 });
 
 export default chatApp;
