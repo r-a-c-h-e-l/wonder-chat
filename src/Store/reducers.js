@@ -5,9 +5,9 @@ import {
   ADD_MESSAGE,
   SET_AUTHOR,
 } from './actionTypes';
-// import uuid from 'uuid/v4';
+import uuid from 'uuid/v4';
 
-const uniqueId = 0;
+const uniqueId = uuid;
 const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut'][Math.floor((Math.random() * 6))];
 const initialAuthorState = { id: uniqueId, name: `anonymous ${nut} (you)`}
 const initialUserState = [[ uniqueId, initialAuthorState]]
