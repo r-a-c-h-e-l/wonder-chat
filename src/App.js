@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Messages from './Components/Main/Messages';
 import MessageInput from './Components/Main/MessageInput';
+import chatStore from './Store';
 
 import './App.css';
 
@@ -12,7 +13,7 @@ class App extends Component {
         <Sidebar />
         <div className="chatMain">
           <Messages />
-          <MessageInput />
+          <MessageInput dispatch={chatStore.dispatch}/>
         </div>
       </div>
     );
