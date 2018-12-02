@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Messages from './Components/Main/Messages';
-import MessageInput from './Components/Main/MessageInput';
-import chatStore from './Store';
+import { MessageInputContainer as MessageInput } from './Components/Main/MessageInputContainer';
 
 import './App.css';
 
@@ -12,8 +11,8 @@ class App extends Component {
       <div className="App">
         <Sidebar />
         <div className="chatMain">
-          <Messages />
-          <MessageInput dispatch={chatStore.dispatch}/>
+          <Messages messages={[]}/>
+          <MessageInput/>
         </div>
       </div>
     );
