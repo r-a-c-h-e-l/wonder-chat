@@ -2,11 +2,13 @@ import React from 'react';
 import UserItem from './UserItem';
 import PropTypes from 'prop-types';
 
-const Users = ({ users }) => {
+const Users = ({ users, author }) => {
   return (
     <div className="usersListContainer">
       {users.map((user, idx) => {
-        return ( <UserItem key={user.id} active={true} name={user.name} />)
+        const isAuthor = user.id === author.id;
+        const name = isAuthor ? `${user.name} (you)` : user.name;
+        return ( <UserItem key={user.id} active={true} name={name} />)
       })}
     </div>
   )
