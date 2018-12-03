@@ -7,8 +7,6 @@ import {
   SET_MESSAGE,
 } from './actionTypes';
 
-let messageCount = 0;
-
 // action creators
 export function addUser(user) {
   console.log("ACTIONCREATOR: ", user);
@@ -38,11 +36,9 @@ export function removeUser(user) {
 }
 
 export function addMessage(message) {
-  // const { message, authorId, authorName } = _message;
   return {
     type: ADD_MESSAGE,
     payload: {
-      id: messageCount++,
       ...message,
     }
   }
@@ -66,9 +62,3 @@ export function setAuthor(user) {
     }
   }
 }
-
-// // websocket actionCreator
-//
-// export function incomingMessage(message) {
-//   return {}
-// }

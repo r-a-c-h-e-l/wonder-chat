@@ -8,9 +8,10 @@ const Messages = ({ messages }) => {
       {messages.map((_message, idx) => {
         return (
           <MessageItem
-            key={_message.id}
+            key={idx}
             message={_message.message}
             author={_message.authorName}
+            authorId={_message.authorId}
           />
         )
       })}
