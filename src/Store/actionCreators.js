@@ -4,6 +4,7 @@ import {
   ADD_MESSAGE,
   SET_AUTHOR,
   SET_USER_LIST,
+  SET_MESSAGE,
 } from './actionTypes';
 
 let messageCount = 0;
@@ -36,15 +37,22 @@ export function removeUser(user) {
   }
 }
 
-export function addMessage(_message) {
-  const { message, authorId, authorName } = _message;
+export function addMessage(message) {
+  // const { message, authorId, authorName } = _message;
   return {
     type: ADD_MESSAGE,
     payload: {
       id: messageCount++,
-      message,
-      authorId,
-      authorName,
+      ...message,
+    }
+  }
+}
+
+export function setMessage(message) {
+  return {
+    type: SET_MESSAGE,
+    payload: {
+      ...message,
     }
   }
 }

@@ -5,6 +5,7 @@ import {
   ADD_MESSAGE,
   SET_AUTHOR,
   SET_USER_LIST,
+  SET_MESSAGE,
 } from './actionTypes';
 import uuid from 'uuid/v4';
 
@@ -58,6 +59,7 @@ export const users = (state = new Map(), action) => {
 export const messages = (state = [], action) => {
   switch(action.type) {
     case ADD_MESSAGE:
+    case SET_MESSAGE:
       return addMessage(state, action.payload)
     default:
       return state

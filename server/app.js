@@ -1,3 +1,4 @@
+
 const WebSocket = require('ws')
 
 const wss = new WebSocket.Server({ port: 8989 })
@@ -13,21 +14,13 @@ const broadcast = (data, ws) => {
 }
 
 wss.on('connection', (ws) => {
-  // console.log('This is ws: ', ws);
   ws.on('message', (message) => {
     const data = JSON.parse(message)
     switch (data.type) {
       case 'ADD_USER': {
-        // index = users.length
-        // users.push({ name: data.name, id: data.id })
-        // ws.send(JSON.stringify({
-        //   type: 'USERS_LIST',
-        //   users
-        // }))
         const user = { id: data.id, name: data.name };
-        const uniqueUser = [data.id, { ...user }]
+        const uniqueUser = [data.id, user]
         users.push(uniqueUser);
-        console.log("USERS LIST on SERVER: ", users);
         const serializedData = JSON.stringify({
           type: 'SET_USER_LIST',
           users,
@@ -36,17 +29,10 @@ wss.on('connection', (ws) => {
         broadcast(serializedData, ws)
         break
       }
-      // case 'ADD_MESSAGE':
-      //   broadcast({
-      //     type: 'ADD_MESSAGE',
-      //     payload: {
-      //       id: data.id,
-      //       message: data.message,
-      //       authorId: data.authorId,
-      //       authorName: data.authorName,
-      //     }
-      //   }, ws)
-      //   break
+      case 'ADD_MESSAGE':
+        const serializedMessage = JSON.stringify(data)
+        broadcast(serializedMessage, ws)
+        break
       default:
         break
     }

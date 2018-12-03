@@ -4,7 +4,7 @@ import {
   ADD_MESSAGE,
   SET_USER_LIST,
 } from './Store/actionTypes';
-import { addUser, setUserList, addMessage, removeUser } from './Store/actionCreators';
+import { setUserList, setMessage, removeUser } from './Store/actionCreators';
 
 const setupSocket = (dispatch, user) => {
   const socket = new WebSocket('ws://localhost:8989')
@@ -19,16 +19,10 @@ const setupSocket = (dispatch, user) => {
     const data = JSON.parse(event.data)
     console.log("client data: ", data);
     switch (data.type) {
-    //   case ADD_MESSAGE:
-    //     const { message, authorId, authorName } = data;
-    //     const _message = { ...data };
-    //     dispatch(addMessage(_message))
-    //     break
-      // case ADD_USER:
-      //   console.log("CLIENT ADD_USER: ", data);
-      //   const user = { ...data };
-      //   dispatch(addUser(user))
-      //   break
+      case ADD_MESSAGE:
+        const { message, authorId, authorName, id} = data.payload;
+        dispatch(setMessage({ message, authorId, authorName, id }))
+        break
       case SET_USER_LIST:
         dispatch(setUserList(data.users))
         break
