@@ -8,13 +8,13 @@ import {
 import uuid from 'uuid/v4';
 
 const uniqueId = uuid;
-const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut'][Math.floor((Math.random() * 6))];
+const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut', 'almond', 'cashew'][Math.floor((Math.random() * 6))];
 const initialAuthorState = { id: uniqueId, name: `anonymous ${nut} (you)`}
 const initialUserState = [[ uniqueId, initialAuthorState]]
 
 // reducers
 function setAuthor(state, payload) {
-  return Object.assign({}, state, { author: payload });
+  return Object.assign(state, payload);
 }
 
 function addUser(state, payload) {
@@ -36,7 +36,7 @@ function addMessage(state, payload) {
 }
 
 // reducer composition, slicing state
-function users(state = new Map(initialUserState), action) {
+export const users = (state = new Map(initialUserState), action) => {
   switch (action.type) {
     case ADD_USER:
       return addUser(state, action.payload)
@@ -47,7 +47,7 @@ function users(state = new Map(initialUserState), action) {
   }
 }
 
-function messages(state = [], action) {
+export const messages = (state = [], action) => {
   switch(action.type) {
     case ADD_MESSAGE:
       return addMessage(state, action.payload)
@@ -56,7 +56,7 @@ function messages(state = [], action) {
   }
 }
 
-function author(state = initialAuthorState, action){
+export const author = (state = initialAuthorState, action) => {
   switch(action.type) {
     case SET_AUTHOR:
       return setAuthor(state, action.payload)
