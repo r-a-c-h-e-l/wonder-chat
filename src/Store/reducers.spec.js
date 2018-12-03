@@ -19,14 +19,14 @@ const initialMessageState = [
 
 describe('#users - reducer', () =>{
   it('should return the users state', () => {
-    const userState = users(new Map(initialUserState), { type: '' })
-    const expectedState = new Map(initialUserState);
+    const userState = users(new Map(), { type: '' })
+    const expectedState = new Map();
     expect(userState).toEqual(expectedState);
   })
   it('should add a user when type = ADD_USER', () => {
     const newUser = { id: 4, name: 'macadamia'}
-    const userState = users(new Map(initialUserState), { type: ADD_USER, payload: newUser })
-    const expectedState = new Map(initialUserState).set(4, newUser);
+    const userState = users(new Map(), { type: ADD_USER, payload: newUser })
+    const expectedState = new Map().set(4, newUser);
     expect(userState).toEqual(expectedState);
   })
   it('should remove a user when type = REMOVE_USER', () => {
