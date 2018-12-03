@@ -10,7 +10,7 @@ import uuid from 'uuid/v4';
 const uniqueId = uuid;
 const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut', 'almond', 'cashew'][Math.floor((Math.random() * 6))];
 const initialAuthorState = { id: uniqueId, name: `anonymous ${nut} (you)`}
-const initialUserState = [[ uniqueId, initialAuthorState]]
+// const initialUserState = [[ uniqueId, initialAuthorState]]
 
 // reducers
 function setAuthor(state, payload) {
@@ -36,7 +36,7 @@ function addMessage(state, payload) {
 }
 
 // reducer composition, slicing state
-export const users = (state = new Map(initialUserState), action) => {
+export const users = (state = new Map(), action) => {
   switch (action.type) {
     case ADD_USER:
       return addUser(state, action.payload)

@@ -2,14 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import chatStore from './Store';
+import { addUser } from './Store/actionCreators';
 import './index.css';
 import App from './App';
-// import * as serviceWorker from './serviceWorker';
 
+const author = chatStore.getState().author;
+
+chatStore.dispatch(addUser(author))
+
+// import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Provider store={chatStore}>
-    <App />
+    <App/>
   </Provider>, document.getElementById('root')
 );
 
