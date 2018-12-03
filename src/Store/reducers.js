@@ -12,7 +12,6 @@ import uuid from 'uuid/v4';
 const uniqueId = uuid();
 const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut', 'almond', 'cashew'][Math.floor((Math.random() * 6))];
 const initialAuthorState = { id: uniqueId, name: `anonymous ${nut}`}
-// const initialUserState = [[ uniqueId, initialAuthorState]]
 
 // reducers
 function setAuthor(state, payload) {
@@ -28,7 +27,7 @@ function addUser(state, payload) {
 
 function setUserList(state, payload) {
   const newState = new Map(payload)
-  return new Map([...state, ...newState]);
+  return newState;
 }
 
 function removeUser(state, payload) {
