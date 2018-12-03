@@ -39,14 +39,6 @@ const broadcastToPairPartner = (data, socketList, ws) => {
   pairedClient.send(data);
 }
 
-
-const findPair = (id) => {
-
-}
-const createPair = () => {
-
-}
-
 wss.on('connection', (ws) => {
   let userIndex;
   let userId
@@ -54,7 +46,6 @@ wss.on('connection', (ws) => {
     const data = JSON.parse(message)
     switch (data.type) {
       case 'ADD_USER': {
-        // const user = { id: data.id, name: data.name };
         userId = data.id;
         userIndex = users.length
         const mappedUser = [data.id, { id: data.id, name: data.name }]
@@ -88,8 +79,6 @@ wss.on('connection', (ws) => {
         if (foundPair) {
           const socketList = foundPair.socketList
           broadcastToPairPartner(serializedMessage, socketList, ws)
-          // const pairedClient = socketList.find((socket) => socket !== ws)
-          // pairedClient.send(serializedMessage);
         }
         break
       default:
@@ -100,15 +89,12 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     users.splice(userIndex, 1)
     const foundPair = pairs.get(userId);
-    console.log({ userId });
     if(foundPair) {
       const socketList = foundPair.socketList
       const pairList = foundPair.pairList
-      // const remainingUser = pairList.find((user) => !user.get(userId))
       const remainingUser = pairList.find((user) => user[0] !== userId);
       broadcastToPairPartner(serializeUserList([remainingUser]), socketList, ws)
     }
-    console.log({ users });
   })
 })
 
