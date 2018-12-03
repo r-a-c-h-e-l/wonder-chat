@@ -4,12 +4,13 @@ import {
   REMOVE_USER,
   ADD_MESSAGE,
   SET_AUTHOR,
+  SET_USER_LIST,
 } from './actionTypes';
 import uuid from 'uuid/v4';
 
-const uniqueId = uuid;
+const uniqueId = uuid();
 const nut = ['macadamia', 'walnut', 'pine nut', 'pistachio', 'pecan', 'hazelnut', 'almond', 'cashew'][Math.floor((Math.random() * 6))];
-const initialAuthorState = { id: uniqueId, name: `anonymous ${nut} (you)`}
+const initialAuthorState = { id: uniqueId, name: `anonymous ${nut}`}
 // const initialUserState = [[ uniqueId, initialAuthorState]]
 
 // reducers
@@ -22,6 +23,11 @@ function addUser(state, payload) {
   const newState = new Map(state);
   newState.set(userId, payload)
   return newState;
+}
+
+function setUserList(state, payload) {
+  const newState = new Map(payload)
+  return new Map([...state, ...newState]);
 }
 
 function removeUser(state, payload) {
@@ -40,6 +46,8 @@ export const users = (state = new Map(), action) => {
   switch (action.type) {
     case ADD_USER:
       return addUser(state, action.payload)
+    case SET_USER_LIST:
+      return setUserList(state, action.payload)
     case REMOVE_USER:
       return removeUser(state, action.payload)
     default:

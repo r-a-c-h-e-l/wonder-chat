@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 const Users = ({ users }) => {
   return (
     <div className="usersListContainer">
-    {console.log({ users })}
       {users.map((user, idx) => {
-        console.log({ user });
         return ( <UserItem key={user.id} active={true} name={user.name} />)
       })}
     </div>

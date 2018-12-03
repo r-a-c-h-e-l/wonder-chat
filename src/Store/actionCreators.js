@@ -3,18 +3,27 @@ import {
   REMOVE_USER,
   ADD_MESSAGE,
   SET_AUTHOR,
+  SET_USER_LIST,
 } from './actionTypes';
 
 let messageCount = 0;
 
 // action creators
 export function addUser(user) {
+  console.log("ACTIONCREATOR: ", user);
   return {
     type: ADD_USER,
     payload: {
       id: user.id,
       name: user.name,
     }
+  }
+}
+
+export function setUserList(users) {
+  return {
+    type: SET_USER_LIST,
+    payload: users,
   }
 }
 
@@ -27,14 +36,15 @@ export function removeUser(user) {
   }
 }
 
-export function addMessage(message) {
+export function addMessage(_message) {
+  const { message, authorId, authorName } = _message;
   return {
     type: ADD_MESSAGE,
     payload: {
       id: messageCount++,
-      message: message.text,
-      authorId: message.authorId,
-      authorName: message.authorName,
+      message,
+      authorId,
+      authorName,
     }
   }
 }
