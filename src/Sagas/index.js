@@ -4,9 +4,7 @@ import {
 } from '../Store/actionTypes';
 
 const handleMessage = function* handleMessage(params) {
-  console.log("IN Sagas/index, params: ", params);
   yield takeEvery(ADD_MESSAGE, (action) => {
-    console.log('Sagas/index: add_message action: ', action);
     params.socket.send(JSON.stringify(action))
   })
 }

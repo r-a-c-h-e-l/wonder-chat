@@ -1,11 +1,12 @@
-
 const WebSocket = require('ws')
 
 const wss = new WebSocket.Server({ port: 8989 })
 
-const users = []
+let waitingUsers = new Map();
+const users = [];
+const pairs = new Map();
 
-const serializeUserList = () => {
+const serializeUserList = (users) => {
   return JSON.stringify({
     type: 'SET_USER_LIST',
     users,
@@ -21,32 +22,75 @@ const holdMessage = JSON.stringify({
     }
   })
 
-const broadcast = (data, ws) => {
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN && client !== ws) {
-      client.send(data)
+const broadcastToPair = (data, socketList) => {
+  socketList.forEach((ws) => {
+    if (wss.clients.has(ws)) {
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN && client === ws) {
+          client.send(data)
+        }
+      })
     }
   })
 }
 
+const broadcastToPairPartner = (data, socketList, ws) => {
+  const pairedClient = socketList.find((socket) => socket !== ws)
+  pairedClient.send(data);
+}
+
+
+const findPair = (id) => {
+
+}
+const createPair = () => {
+
+}
+
 wss.on('connection', (ws) => {
   let userIndex;
+  let userId
   ws.on('message', (message) => {
     const data = JSON.parse(message)
     switch (data.type) {
       case 'ADD_USER': {
-        const user = { id: data.id, name: data.name };
-        const uniqueUser = [data.id, user]
+        // const user = { id: data.id, name: data.name };
+        userId = data.id;
         userIndex = users.length
-        users.push(uniqueUser);
-        ws.send(serializeUserList())
-        if (users.length === 1) ws.send(holdMessage)
-        broadcast(serializeUserList(), ws)
+        const mappedUser = [data.id, { id: data.id, name: data.name }]
+        users.push(mappedUser);
+        waitingUsers.set(data.id, { userIdx: userIndex, ws });
+
+        if (waitingUsers.size === 1) {
+          const waitingUser = [users[userIndex]]
+          ws.send(holdMessage)
+          ws.send(serializeUserList(waitingUser))
+        }
+        if (waitingUsers.size === 2) {
+          const pair = new Map(waitingUsers);
+          let pairUserList = [];
+          let pairSocketList = [];
+          for (const k of pair.keys()) {
+            const { userIdx, ws } = waitingUsers.get(k)
+            pairs.set(k, { pair, pairList: pairUserList, socketList: pairSocketList })
+            pairUserList.push(users[userIdx])
+            pairSocketList.push(ws);
+            waitingUsers.delete(k);
+          }
+          broadcastToPair(serializeUserList(pairUserList), pairSocketList)
+        }
         break
       }
       case 'ADD_MESSAGE':
         const serializedMessage = JSON.stringify(data)
-        broadcast(serializedMessage, ws)
+        const { authorId } = data.payload;
+        const foundPair = pairs.get(authorId);
+        if (foundPair) {
+          const socketList = foundPair.socketList
+          broadcastToPairPartner(serializedMessage, socketList, ws)
+          // const pairedClient = socketList.find((socket) => socket !== ws)
+          // pairedClient.send(serializedMessage);
+        }
         break
       default:
         break
@@ -55,7 +99,16 @@ wss.on('connection', (ws) => {
 
   ws.on('close', () => {
     users.splice(userIndex, 1)
-    broadcast(serializeUserList(), ws)
+    const foundPair = pairs.get(userId);
+    console.log({ userId });
+    if(foundPair) {
+      const socketList = foundPair.socketList
+      const pairList = foundPair.pairList
+      // const remainingUser = pairList.find((user) => !user.get(userId))
+      const remainingUser = pairList.find((user) => user[0] !== userId);
+      broadcastToPairPartner(serializeUserList([remainingUser]), socketList, ws)
+    }
+    console.log({ users });
   })
 })
 
