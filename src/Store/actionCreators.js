@@ -9,7 +9,6 @@ import {
 
 // action creators
 export function addUser(user) {
-  console.log("ACTIONCREATOR: ", user);
   return {
     type: ADD_USER,
     payload: {

@@ -15,9 +15,4 @@ const socket = initializeSocket(chatStore.dispatch, author);
 
 
 sagaMiddleware.run(handleMessage, { socket })
-
-console.log("Initial State: ", chatStore.getState());
-
-chatStore.subscribe(() => console.log(chatStore.getState()))
-
 export default chatStore;

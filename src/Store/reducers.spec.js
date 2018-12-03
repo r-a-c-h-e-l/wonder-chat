@@ -55,7 +55,6 @@ describe('#author - reducer', () =>{
   it('should return the authors state', () => {
     const authorState = author(initialAuthorState, { type: '' })
     const expectedState = initialAuthorState;
-    console.log(authorState);
     expect(authorState).toEqual(expectedState);
   })
   it('should set the author when type = SET_AUTHOR', () => {

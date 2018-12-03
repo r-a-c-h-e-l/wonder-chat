@@ -40,12 +40,11 @@ describe('#removeUser', () => {
 
 describe('#addMessage', () => {
   it('should return a user action of type ADD_MESSAGE', () => {
-    const mockMessage = { authorId: 1, authorName: 'test user', text: 'this is a test message'};
+    const mockMessage = { authorId: 1, authorName: 'test user', message: 'this is a test message'};
     const expectedAction = {
       type: ADD_MESSAGE,
       payload: {
-        id: 0,
-        message: mockMessage.text,
+        message: mockMessage.message,
         authorId: mockMessage.authorId,
         authorName: mockMessage.authorName,
       }
